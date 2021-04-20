@@ -1,0 +1,14 @@
+if [ ! -d "/config/.wine/drive_c/Program Files/Blue Iris 5/" ]; then
+	# Dependencies
+	/usr/bin/winetricks win7
+	/usr/bin/winetricks corefonts wininet urlmon
+	/usr/bin/winetricks -q vcrun2015
+
+	# Fix X11 display output
+	wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\X11 Driver" "/v" "UseXVidMode" "/t" "REG_SZ" "/d" "N"
+
+	# Install Blue Iris 5
+	msiexec /i /tmp/Blue\ Iris.msi /qn SETUPEXEDIR=%cd%
+fi
+
+/usr/bin/wine /config/.wine/drive_c/Program\ Files/Blue\ Iris\ 5/BlueIris.exe
