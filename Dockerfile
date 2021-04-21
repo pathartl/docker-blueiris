@@ -2,7 +2,10 @@ FROM ghcr.io/linuxserver/baseimage-rdesktop-web:bionic
 
 ENV WINEARCH=win32
 ENV WINEDLLOVERRIDES="mscoree="
-ENV CUSTOM_PORT=3002
+ENV \
+	CUSTOM_PORT="8080" \
+	GUIAUTOSTART="true" \
+	HOME="/config"
 
 RUN \
  echo "**** install packages ****" && \
@@ -20,9 +23,7 @@ RUN \
  apt-get install -y \
         winehq-devel && \
  wget -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks && \
- chmod +x /usr/bin/winetricks
+ chmod +x /usr/bin/winetricks && \
+ wget -O /tmp/blueiris.exe https://blueirissoftware.com/blueiris.exe
 
 COPY /root /
-
-EXPOSE 3000
-VOLUME /config

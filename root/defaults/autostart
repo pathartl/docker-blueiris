@@ -11,4 +11,4 @@ if [ ! -d "/config/.wine/drive_c/Program Files/Blue Iris 5/" ]; then
 	msiexec /i /tmp/Blue\ Iris.msi /qn SETUPEXEDIR=%cd%
 fi
 
-/usr/bin/wine /config/.wine/drive_c/Program\ Files/Blue\ Iris\ 5/BlueIris.exe
+s6-envdir -fn -- /var/run/s6/container_environment /usr/bin/wine /config/.wine/drive_c/Program\ Files/Blue\ Iris\ 5/BlueIris.exe
